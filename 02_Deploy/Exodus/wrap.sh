@@ -1,0 +1,12 @@
+#collect html of ads
+firefox http://run.imacros.net/?m=#AdMacros.iim
+cp ../iMacros/Downloads/* input/*
+
+#run the python job to upload ads and create raw file
+ext=`date +"%d%m%y%H%M%S"`
+filename="url_$ext.csv"
+sh simple3.py > $filename 
+
+#cleanup
+rm -f ../iMacros/Downloads/*
+rm -f input/*

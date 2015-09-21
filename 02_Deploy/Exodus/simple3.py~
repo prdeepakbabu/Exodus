@@ -1,0 +1,59 @@
+#import urllib
+#response = urllib.urlopen('https://in.yahoo.com/?p=us')
+#html=response.read()
+from pyquery import PyQuery as pq
+from pymatch import Filter
+import urllib2
+from os import listdir
+import os
+import urllib
+
+#class HeadRequest(urllib2.Request):
+#    def get_method(self):
+#        return 'HEAD'
+f = Filter(file('easylist.txt'))
+writefile = urllib.URLopener()
+
+def getads(file):
+	os.chdir("/home/deepak/Documents/Exodus/MyAds/input")
+	fl=open(file,'r')
+	html=fl.read()
+	d=pq(html)
+	#d=pq(url='https://in.yahoo.com/?p=us')
+	x=d('img')
+        y=d('title')
+	#y=d('a')	
+	for i in range(len(x))	: 
+		#print x.eq(i).attr('src') 
+		#print f.match(x.eq(i).attr('src'))
+		try:
+			tmp=str(f.match(x.eq(i).attr('src')))
+		except:
+			tmp="0"			
+			pass
+		if  tmp == "1":
+			print x.eq(i).attr('src')	
+
+#for i in range(len(y))	: 
+	#print y.eq(i).attr('href') 
+	#print f.match(x.eq(i).attr('src'))
+	#tmp=str(f.match(y.eq(i).attr('href')))
+	#if  tmp == "1":
+	#	print y.eq(i).attr('href')	
+
+#scrapy startproject getads
+#vim items.py
+#response.xpath('//img')
+#scrapy crawl myads -o data.csv -t csv
+
+
+#a=['yahoosports.htm','yahoosports2.htm','yahoosports3.htm','yahoosports4.htm','yahoosports5.htm']
+#a=['yh_20150816_110947.htm']
+#a=["input/"+f for f in listdir("input")]
+a=[fx for fx in listdir("input")]
+os.chdir("input/")
+print os.getcwd()
+for i in range(0,len(a)):
+	getads(a[i])
+
+#python simple2.py >> url.csv
