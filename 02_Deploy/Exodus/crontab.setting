@@ -1,0 +1,1 @@
+40 18 * * * sh /root/Exodus/macro.sh && sh /root/Exodus/start.sh
