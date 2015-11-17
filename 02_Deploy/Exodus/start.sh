@@ -1,4 +1,4 @@
-home="/root"
+home="/home/dev"
 
 #logging
 echo "Daily Job Started at `date`" >> $home/Exodus/Logs/log.txt
@@ -11,7 +11,7 @@ cp $home/iMacros/Downloads/* $home/Exodus/input
 #run the python job to upload ads and create raw file
 ext=`date +"%d%m%y%H%M%S"`
 filename="url_$ext.csv"
-python simple4.py > $home/Exodus/$filename 
+python $home/Exodus/simple5.py > $home/Exodus/$filename 
 cnt_images=`ls -lt $home/Exodus/input | grep 'img' | wc -l`
 cnt_final=`cat $home/Exodus/$filename | wc -l`
 

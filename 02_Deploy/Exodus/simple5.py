@@ -3,6 +3,7 @@
 #html=response.read()
 from pyquery import PyQuery as pq
 from pymatch import Filter
+import imagehash
 import urllib2
 from os import listdir
 import os
@@ -99,12 +100,16 @@ def getads(file):
 					pass
 			else:				
 				s3 = boto3.resource('s3')
+				try:
+					hash=imagehash.average_hash(Image.open(dl_img))
+				except:
+					hash="0"
 				data=open(dl_img,"rb")
 				s3.Bucket("adsrepo").put_object(Key=dl_img,Body=data)
                                 dl_url="https://s3-ap-southeast-1.amazonaws.com/adsrepo/"+dl_img
 				#dl_url = "https://drive.google.com/open?id="+file1['id']
 				#print x.eq(i).attr('src'),time,date,source,dl_img,width,height,filetype,size,dl_url
-				print str(time) + "|||" + str(date) + "|||" + source + "|||" + dl_img + "|||" + str(width) + "|||" + str(height) + "|||" + filetype + "|||" + str(size) + "|||" + dl_url + "|||" + landing_page
+				print str(time) + "|||" + str(date) + "|||" + source + "|||" + dl_img + "|||" + str(width) + "|||" + str(height) + "|||" + filetype + "|||" + str(size) + "|||" + dl_url + "|||" + landing_page + "|||" + str(hash)
 
 
 
